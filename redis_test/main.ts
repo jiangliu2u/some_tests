@@ -11,15 +11,18 @@ let redisa = new Redis({
 });
 let offset = 0;
 let canvas = new Uint8Array(4);
-redisa.getBuffer("meme", function (err, r) {
+//my设置为 bitfield my set u4 #0 1 # 2 12
+redisa.getBuffer("my", function (err, r) {
     console.log(r);
-    let b = new Uint8Array(r, 0);
+    let b = new Uint8Array(r,0);
+    console.log(b.byteLength);
+    console.log("=============");
     for (let i = 0; i < b.byteLength; i++) {
         console.log(b[i] >> 4);
         console.log(b[i] & 15);
-        canvas[offset + 2 * i] = b[i] >> 4;
-        canvas[offset + 2 * i + 1] = b[i] & 15;
+        //1byte可以表示两个值
+        canvas[offset + 2 * i] = b[i] >> 4;//高位
+        canvas[offset + 2 * i + 1] = b[i] & 15;//低位
     }
     offset = b.byteLength * 2;
-    console.log(canvas);
 });
