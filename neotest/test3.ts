@@ -1,9 +1,8 @@
-
-//NEP5智能合约转账
-const { default: Neon, api, wallet,u} = require("@cityofzion/neon-js");
+const {default: Neon, api, wallet, u,rpc} = require("@cityofzion/neon-js");
 const sb = Neon.create.scriptBuilder();
-import { privKey } from "./pri";
-const sendingKey = privKey;
+import {privKey2} from "./pri";
+
+const sendingKey = privKey2;
 const receivingAddress = "ASmpTmH6Wg5nwtxoCeXRS68ocqBJgk2rTQ";
 const contractScriptHash = "f0c1f15cb3b7ec9466e63aff988aab4083e80dd1";
 const numOfDecimals = 4;
@@ -19,19 +18,18 @@ const account = new wallet.Account(sendingKey);
 
 // Build script to call 'name' from contract at 5b7074e873973a6ed3708862f219a6fbf4d1c411
 const config = {
-    api:apiProvider,
+    api: apiProvider,
     script: Neon.create.script({
         scriptHash: 'f0c1f15cb3b7ec9466e63aff988aab4083e80dd1',
-        operation: 'transfer',
-        args: [u.str2hexstring(account.address),u.str2hexstring("ASmpTmH6Wg5nwtxoCeXRS68ocqBJgk2rTQ"),123]
+        operation: 'tranferFrom',
+        args: [u.str2hexstring(account.address), u.str2hexstring("AGCZsNnK1XQCKLueMsrhJtB8xXDk53y7YB"), u.str2hexstring(account.address), 1234567]
     }),
     address: account.address,
     account,
     privateKey: account.privateKey,
     gas: 0
 };
-console.log(u.str2hexstring(account.address))
-console.log(u.str2hexstring("ASmpTmH6Wg5nwtxoCeXRS68ocqBJgk2rTQ"))
+console.log(config)
 Neon.doInvoke(config)
     .then(config => {
         console.log("\n\n--- Response ---");

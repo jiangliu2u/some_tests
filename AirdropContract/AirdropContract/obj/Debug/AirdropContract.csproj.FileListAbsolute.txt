@@ -1,0 +1,7 @@
+C:\Users\ranger\Desktop\C1\some_tests\AirdropContract\AirdropContract\bin\Debug\AirdropContract.dll
+C:\Users\ranger\Desktop\C1\some_tests\AirdropContract\AirdropContract\bin\Debug\AirdropContract.pdb
+C:\Users\ranger\Desktop\C1\some_tests\AirdropContract\AirdropContract\bin\Debug\Neo.SmartContract.Framework.dll
+C:\Users\ranger\Desktop\C1\some_tests\AirdropContract\AirdropContract\obj\Debug\AirdropContract.csproj.CoreCompileInputs.cache
+C:\Users\ranger\Desktop\C1\some_tests\AirdropContract\AirdropContract\obj\Debug\AirdropContract.csproj.CopyComplete
+C:\Users\ranger\Desktop\C1\some_tests\AirdropContract\AirdropContract\obj\Debug\AirdropContract.dll
+C:\Users\ranger\Desktop\C1\some_tests\AirdropContract\AirdropContract\obj\Debug\AirdropContract.pdb

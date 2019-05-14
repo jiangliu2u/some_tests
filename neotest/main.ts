@@ -17,7 +17,7 @@ const account = new wallet.Account(sendingKey);
 
 console.log("\n\n--- Sending Address ---");
 console.log(account);
-const generator = nep5.abi.transfer(contractScriptHash, account.address, receivingAddress, amtToSend * numOfDecimals)
+const generator = nep5.abi.transfer(contractScriptHash, account.address, receivingAddress, amtToSend)
 const builder = generator();
 const script = builder.str;
 const gas = additionalInvocationGas;
@@ -29,10 +29,10 @@ const config = {
     script: script, // The Smart Contract invocation script
     gas: gas // Additional GAS for invocation.
 };
-
+console.log(config)
 Neon.doInvoke(config)
     .then(config => {
-        console.log("\n\n--- Response ---");
+        console.log("--- Response ---");
         console.log(config.response);
     })
     .catch(config => {
