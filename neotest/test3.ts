@@ -10,10 +10,8 @@ const amtToSend = 1;
 const network = "TestNet";
 const additionalInvocationGas = 0;
 const additionalIntents = [];
-const apiProvider = new api.neoscan.instance("TestNet");
+const apiProvider = new api.neoscan.instance("https://api.nel.group/api/testnet");
 
-console.log("\n\n--- API Provider ---");
-console.log(apiProvider);
 const account = new wallet.Account(sendingKey);
 
 // Build script to call 'name' from contract at 5b7074e873973a6ed3708862f219a6fbf4d1c411
