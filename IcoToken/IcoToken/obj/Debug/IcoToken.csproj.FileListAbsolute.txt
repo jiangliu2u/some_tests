@@ -1,0 +1,8 @@
+C:\Users\ranger\Desktop\C1\some_tests\IcoToken\IcoToken\bin\Debug\IcoToken.dll
+C:\Users\ranger\Desktop\C1\some_tests\IcoToken\IcoToken\bin\Debug\IcoToken.pdb
+C:\Users\ranger\Desktop\C1\some_tests\IcoToken\IcoToken\bin\Debug\Neo.SmartContract.Framework.dll
+C:\Users\ranger\Desktop\C1\some_tests\IcoToken\IcoToken\obj\Debug\IcoToken.csprojAssemblyReference.cache
+C:\Users\ranger\Desktop\C1\some_tests\IcoToken\IcoToken\obj\Debug\IcoToken.csproj.CoreCompileInputs.cache
+C:\Users\ranger\Desktop\C1\some_tests\IcoToken\IcoToken\obj\Debug\IcoToken.csproj.CopyComplete
+C:\Users\ranger\Desktop\C1\some_tests\IcoToken\IcoToken\obj\Debug\IcoToken.dll
+C:\Users\ranger\Desktop\C1\some_tests\IcoToken\IcoToken\obj\Debug\IcoToken.pdb
