@@ -2,3 +2,4 @@ node_modules
 docs/_book
 .vs
 .idea
+.vscode
