@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^12.0.2"
+    "@types/node": "^12.0.2",
+    "sofa-rpc-node": "^1.14.1"
   }
 }
