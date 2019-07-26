@@ -1,2 +1,5 @@
 .vs/
+.vscode/
 *.cpython-36.pyc
+*.cpython-37.pyc
+*.cpython-35.pyc
