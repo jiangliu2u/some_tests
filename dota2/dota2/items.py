@@ -9,6 +9,6 @@ import scrapy
 
 
 class Dota2Item(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    name = scrapy.Field()
+    skills = scrapy.Field()
+    skill_names = scrapy.Field()
