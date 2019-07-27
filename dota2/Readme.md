@@ -4,4 +4,4 @@
 * 本项仅供学习之用
 
 ## 运行
-安装scrapy,然后在pipelines.py里redis的地址端口和密码,然后运行python run.py即可
+用pip安装redis,scrapy,lxml,然后在pipelines.py里redis的地址端口和密码,然后运行python run.py即可
