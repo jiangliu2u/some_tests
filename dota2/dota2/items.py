@@ -16,3 +16,4 @@ class Dota2Item(scrapy.Item):
     skill_descs = scrapy.Field()
     talent = scrapy.Field()
     primary_attr = scrapy.Field()
+    type = scrapy.Field()

@@ -18,13 +18,13 @@ class Dota2Pipeline(object):
         hero["name"] = name
         hero["talent"] = item["talent"]
         hero["name_cn"] = name_cn
+        hero["type"] = item['type']
         hero["attr"] = item["primary_attr"]
 
         for i in range(0, len(skills)):
             hero["abilities"][skill_names[i]]= {}
             hero["abilities"][skill_names[i]]['desc']= skill_descs[i]
             hero["abilities"][skill_names[i]]['detail']= skills[i]
-
             self.db.set("dota_heroes:"+name,
                         json.dumps(hero, ensure_ascii=False))
             self.db.lpush("dota_heroes_list", name)

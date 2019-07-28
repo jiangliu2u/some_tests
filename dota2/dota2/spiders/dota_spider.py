@@ -14,23 +14,39 @@ class Dota2(scrapy.Spider):
         yield scrapy.Request(url=self.home, callback=self.parse_hero, headers=self.headers)
 
     def parse_hero(self, response):
-        pat_heroes = "/html/body/div[2]/div[3]/div[1]/div[2]/div[2]/div[@class='hero-list-hero Unused-Hero']/@onclick"
-        heroes = response.xpath(pat_heroes).extract()
-        print(len(heroes))
-        for i in heroes:
-            i = i.replace("DoNav('", "")
-            i = i.replace("');", "")
-            i = i.replace("'", "")
-            i = i.replace(")", "")
-            url = self.url+i
-            url = url.strip()
-            yield scrapy.Request(url=url, callback=self.parse_detail, headers=self.headers)
+        pat_heroes = "/html/body/div[2]/div[3]/div[1]/div[2]/div[2]/div"
+        all = response.xpath(pat_heroes).extract()
+        for i in range(0, len(all)+1):
+            if i != 1 and i != 40 and i != 78:  # 列表分割位置
+                pat_hero = "/html/body/div[2]/div[3]/div[1]/div[2]/div[2]/div[position()="+str(
+                    i)+"]/@onclick"
+                hero = response.xpath(pat_hero).extract()
+                if len(hero) < 1:
+                    continue
+                hero = hero[0].replace("DoNav('", "")
+                hero = hero.replace("');", "")
+                hero = hero.replace("'", "")
+                hero = hero.replace(")", "")
+                url = self.url+hero
+
+                hero_type = ""
+                if i < 40:
+                    hero_type = "str"
+                elif i < 78:
+                    hero_type = "agi"
+                else:
+                    hero_type = "int"
+                url = url.strip()+"?"+hero_type
+                yield scrapy.Request(url=url, callback=self.parse_detail, headers=self.headers)
 
     def parse_detail(self, response):
-        url = response.url
+        hero_type = response.url.split("?")[1]
+        url = response.url.split("?")[0]
+        print(url, hero_type)
         heroname = url.replace("http://www.dotamax.com/hero/detail/", "")
         heroname = heroname.replace("/", "")
         item = Dota2Item()
+        item['type'] = hero_type
         div = response.xpath(
             "//*[@id='accordion']/div").extract()
         pat_names = "//*[@id='accordion']/div[position()>4 and @style='font-weight: bold;margin-left: 10px;margin-top:10px;width: 93%;height: 62px; line-height: 42px;font-size: 16px;font-weight: 500;']/text()"
@@ -130,6 +146,53 @@ class Dota2(scrapy.Spider):
             title = title.replace(" ", "")
             title = title.replace("\n", "")
             item['primary_attr'][title] = attr[i].strip()
+
+        # 等级属性增长
+        script = response.xpath(
+            "/html/body/div[2]/div[3]/div[1]/script[2]/text()").extract()
+        stats = script[0].split("\n")
+        # print(stats)
+        for i in stats:
+            #   var health_add = 2.20000*19;
+            p1 = re.compile(".*?health_add = (.*?)\*.*?;", re.S)
+            str_add = re.findall(p1, i)
+            if len(str_add) > 0:
+                item['primary_attr']["str_add"] = str_add[0]
+
+            p1 = re.compile(".*?mana_add = (.*?)\*.*?;", re.S)
+            int_add = re.findall(p1, i)
+            if len(int_add) > 0:
+                item['primary_attr']["int_add"] = int_add[0]
+
+            p1 = re.compile(".*?armor_add = (.*?)\*.*?;", re.S)
+            agi_add = re.findall(p1, i)
+            if len(agi_add) > 0:
+                item['primary_attr']["agi_add"] = agi_add[0]
+
+            p1 = re.compile(".*?armor_init = (.*?)\+.*?;", re.S)
+            armor_init = re.findall(p1, i)
+            if len(armor_init) > 0:
+                item['primary_attr']["armor_init"] = armor_init[0]
+            
+            p1 = re.compile(".*?armor_init = (.*?)\+.*?;", re.S)
+            armor_init = re.findall(p1, i)
+            if len(armor_init) > 0:
+                item['primary_attr']["armor_init"] = armor_init[0]
+            
+            p1 = re.compile(".*?armor_init = (.*?)\+.*?;", re.S)
+            armor_init = re.findall(p1, i)
+            if len(armor_init) > 0:
+                item['primary_attr']["armor_init"] = armor_init[0]
+            
+            p1 = re.compile(".*?attack_min = (\d+);", re.S)
+            attack_min = re.findall(p1, i)
+            if len(attack_min) > 0:
+                item['primary_attr']["attack_min"] = attack_min[0]
+            
+            p1 = re.compile(".*?attack_max = (\d+);", re.S)
+            attack_max = re.findall(p1, i)
+            if len(attack_max) > 0:
+                item['primary_attr']["attack_max"] = attack_max[0]
 
         heroname_cn = response.xpath(
             '//*[@id="accordion"]/div[1]/div/text()').extract()[0]
